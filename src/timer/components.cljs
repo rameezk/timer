@@ -11,17 +11,17 @@
 
 
 (defn start-button []
-  [:button.button.is-success.mx-2
+  [:button.button.is-success.mx-2.is-size-3
    {:on-click #(rf/dispatch [::state/start])}
    "Start"])
 
 (defn stop-button []
-  [:button.button.is-danger.mx-2
+  [:button.button.is-danger.mx-2.is-size-3
    {:on-click #(rf/dispatch [::state/stop])}
    "Stop"])
 
 (defn reset-button []
-  [:button.button.is-warning.mx-2
+  [:button.button.is-warning.mx-2.is-size-3
    {:on-click #(rf/dispatch [::state/reset])}
    "Reset"])
 
