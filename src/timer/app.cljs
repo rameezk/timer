@@ -19,7 +19,6 @@
     [version]]])
 
 (defn mount-reagent []
-  (rf/dispatch-sync [::state/initialize])
   (rd/render app (js/document.getElementById "app")))
 
 (defn ^:export run []
