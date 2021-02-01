@@ -7,7 +7,8 @@
   (fn [_ _]
     {:db
      {:running?        nil
-      :current-seconds nil}
+      :current-seconds nil
+      :choose-time?    nil}
      :dispatch [::reset]}))
 
 (rf/reg-event-fx
@@ -28,7 +29,8 @@
   (fn [db _]
     (assoc db
            :running? false
-           :current-seconds 120)))
+           :current-seconds 120
+           :choose-time? false)))
 
 (rf/reg-event-db
 ::stop
@@ -36,14 +38,24 @@
   (assoc db :running? false)))
 
 (rf/reg-event-db
-::start
-(fn [db _]
-  (assoc db :running? true)))
+  ::start
+  (fn [db _]
+    (assoc db :running? true :choose-time? false)))
+
+(rf/reg-event-db
+  ::choose-time
+  (fn [db _]
+    (assoc db :choose-time? true)))
 
 (rf/reg-sub
-::running?
-(fn [db _]
-  (:running? db)))
+  ::running?
+  (fn [db _]
+    (:running? db)))
+
+(rf/reg-sub
+  ::choose-time?
+  (fn [db _]
+    (:choose-time? db)))
 
 (rf/reg-sub
   ::current-time

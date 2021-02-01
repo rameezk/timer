@@ -16,6 +16,7 @@
    [:div.container
     [c/clock]
     [c/control]
+    [c/choose-time]
     [version]]])
 
 (defn mount-reagent []
@@ -33,6 +34,3 @@
 
 (defn ^:dev/after-load shaddow-start [] (mount-reagent))
 (defn ^:dev/before-load shaddow-stop [])
-
-
-
