@@ -25,9 +25,6 @@
   (rf/dispatch-sync [::state/initialize])
   (mount-reagent))
 
-(defn ^:dev/init init []
-  (mount-reagent))
-
 (defn- listen []
   (events/listen js/window "load" #(run))
   (js/setInterval #(rf/dispatch [::state/tick]) 1000))
