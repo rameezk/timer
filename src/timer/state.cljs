@@ -10,18 +10,18 @@
       :current-seconds nil}
      :dispatch [::reset]}))
 
-(rf/reg-event-db
+(rf/reg-event-fx
   ::tick
-  (fn [db _]
+  (fn [{:keys [db]} _]
     (let [running? (:running? db)]
       (if running? 
         (let [current-seconds (:current-seconds db)
               next            (dec current-seconds)
               done?           (neg? next)]
           (if done?
-            (assoc db :current-seconds 120)
-            (assoc db :current-seconds next)))
-        db))))
+            {:db db :dispatch [::reset]}
+            {:db (assoc db :current-seconds next)}))
+        {:db db}))))
 
 (rf/reg-event-db
   ::reset
