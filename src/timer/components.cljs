@@ -1,6 +1,7 @@
 (ns timer.components
   (:require [re-frame.core :as rf]
-            [timer.state :as state]))
+            [timer.state :as state]
+            [reagent.core :as re]))
 
 (defn clock []
   (let [{:keys [minutes seconds]} @(rf/subscribe [::state/current-time])]
@@ -39,19 +40,23 @@
       (reset-button)
       (when (not  choose-time?) (choose-time-button))]]))
 
-(defn choose-time[]
+(defn choose-time
+  "Maintains it's own state using an Atom"
+  []
   (let [choose-time? @(rf/subscribe [::state/choose-time?])]
-    (when choose-time? 
-      [:div
-       [:p.title.has-text-white "Select Time"]
-       [:div.field
-        [:label.label.has-text-white "Time"]
-        [:div.control
-         [:input.input {:type        "text"
-                        :placeholder "00:00"
-                        :pattern     #"a"}]
-         [:span.icon.is-small.is-left
-          [:i.fas.fa-clock]]]]
-       [:div.field.is-grouped
-        [:div.control
-         [:button.button.is-link "Submit"]]]])))
+    (when choose-time?
+      (let [chosen-time (re/atom nil)]
+        [:div
+         [:p.title.has-text-white "Select Time"]
+         [:div.field
+          [:label.label.has-text-white "Time"]
+          [:div.control
+           [:input.input {:type        "text"
+                          :placeholder "00:00"
+                          :on-change   #(reset! chosen-time (-> % .-target .-value))}]
+           [:span.icon.is-small.is-left
+            [:i.fas.fa-clock]]]]
+         [:div.field.is-grouped
+          [:div.control
+           [:button.button.is-link
+            {:on-click #(rf/dispatch [::state/set-time @chosen-time])} "Submit"]]]]))))

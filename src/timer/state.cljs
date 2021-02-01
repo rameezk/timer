@@ -47,6 +47,13 @@
   (fn [db _]
     (assoc db :choose-time? true)))
 
+(rf/reg-event-db
+  ::set-time
+  (fn [db [_ inputted-time]]
+    (assoc db
+           :current-seconds (u/time->seconds inputted-time)
+           :choose-time? false)))
+
 (rf/reg-sub
   ::running?
   (fn [db _]
