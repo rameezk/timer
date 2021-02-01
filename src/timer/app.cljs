@@ -27,7 +27,7 @@
 
 (defn- listen []
   (events/listen js/window "load" #(run))
-  (js/setInterval #(rf/dispatch [::state/tick]) 1000))
+  (js/setInterval #(rf/dispatch [::state/tick]) 50))
 
 (defonce listening? (listen))
 

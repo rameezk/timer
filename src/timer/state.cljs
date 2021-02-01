@@ -1,5 +1,6 @@
 (ns timer.state
-  (:require [re-frame.core :as rf]))
+  (:require [re-frame.core :as rf]
+            [timer.util :as u]))
 
 (rf/reg-event-fx
   ::initialize
@@ -48,7 +49,7 @@
   ::current-time
   (fn [db _]
     (let [total-seconds (:current-seconds db)
-          real-minutes  (quot total-seconds 60)
-          seconds       (mod total-seconds 60)]
-      {:minutes real-minutes :seconds seconds})))
+          minutes       (u/time->str (quot total-seconds 60))
+          seconds       (u/time->str (mod total-seconds 60))]
+      {:minutes minutes :seconds seconds})))
 
