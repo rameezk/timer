@@ -5,7 +5,7 @@
             [re-frame.core :as rf]
             [timer.state :as state]))
 
-(def v 1)
+(def v 2)
 
 (defn- version []
   [:span {:style {:position "fixed" :right "1rem" :bottom "1rem"}} v])
