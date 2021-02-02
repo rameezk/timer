@@ -1,7 +1,6 @@
 {:source-paths
  ["src"]
 
- ;; :proxy {:host "127.0.0.1" :port 3128}
  :nrepl {:port 9000}
 
  :dependencies
@@ -13,9 +12,5 @@
                 :output-dir "public/js"
                 :modules    {:main {:entries [timer.app]}}
                 :devtools   {:http-root "public"
-                             :http-port 3000}}
-
-          :prod {:target     :browser
-                 :output-dir "public/js"
-                 :modules    {:main {:entries [timer.app]}}
-                 :release    {:compiler-options {:optimizations :simple}}}}}
+                             :http-port 3000}
+                :release    {:compiler-options {:optimizations :simple}}}}}
